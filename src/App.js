@@ -1,25 +1,30 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Form from './components/form';
+import Api_Facial from "./apiFacil/index";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { DatePicker } from "antd"
+import 'antd/dist/antd.css'
+//import Session from "./session/session";
+//mport Autocapture from './AutoCaptura/autocapturecamera';
+
+import { 
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+
+} from "react-router-dom";
 
 function App() {
+ 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+    <Router>
+      <Api_Facial/>
+      <Route path="/Form" exact component={Form}/>
+    </Router>
+
   );
 }
 
