@@ -35,7 +35,7 @@ const APIForm  = (props) => {
 
         TOCautocapture('container', {
             locale: "es",
-            session_id: "33e8503a3d604fdebf2b9c818c05a327",
+            session_id: sessionId,
             document_type: dtype,
             document_side: "back",
             http: true,
@@ -64,7 +64,7 @@ const APIForm  = (props) => {
 
         TOCautocapture('containerfront', {
             locale: "es",
-            session_id: "33e8503a3d604fdebf2b9c818c05a327",
+            session_id: sessionId,
             document_type: dtype,
             document_side: "front",
             callback: function(captured_token, image){ 
@@ -91,7 +91,7 @@ const APIForm  = (props) => {
 
         TOCliveness ('liveness', {
         locale: "es",
-        session_id: "33e8503a3d604fdebf2b9c818c05a327",
+        session_id: sessionId,
         http: true,
         callback: function(token){ 
         message.success('Captura Realizada', 3)
@@ -100,7 +100,7 @@ const APIForm  = (props) => {
         setViewDiv2(true)
         },
         failure: function(error){ message.error('Se ha generado el error: ' + error)},
-        http: true, 
+        http: false, 
     }) 
     } 
 
