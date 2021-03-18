@@ -1,16 +1,12 @@
-import {Button, Col, Form, Input, Row, Select, Switch, message, Modal, Image} from "antd";
-import React, {useEffect, useState, useRef} from "react";
-import {ReactDOM, useHistory} from 'react-router-dom';
+import {Button, Col, Form, Row, Select, message, Modal, Image} from "antd";
+import React, { useState} from "react";
 import axios from "axios";
-import styles from '../App.css';
-import SelectD from '../components/doom';
 const {Option} = Select;
 
 const APIForm  = (props) => {
     const [form] = Form.useForm();
-    const [image_category, setImage_category] = useState("");
-    const [image_category2, setImage_category2] = useState('');
-    const [image_category3, setImage_category3] = useState('');
+    const [imageFront, setImageFront] = useState("");
+    const [imageBack, setImageBack] = useState('');
     const [information, setInformation] = useState({});
     const [visible, setVisible] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
@@ -20,70 +16,76 @@ const APIForm  = (props) => {
     const [tokenBack, setTokenBack] = useState("")
     const [tokenliveness, setTokenLiveness] = useState("")
     const [hidden, setHidden] = useState(false)
-    const history = useHistory()
-
+    const [viewDiv, setViewDiv] = useState(true)
+    const [viewDiv1, setViewDiv1] = useState(true)
+    const [viewDiv2, setViewDiv2] = useState(true)
+    
     const onChange = (value) =>{
         const a = value
         setdtype(a)
         setHidden(true)
         console.log(dtype)
     }
-
-
     const divAutocaptureBack = async (values) =>{
+        setViewDiv1(false)
         const sessionId = await getSessionId();
         console.log('Session id', sessionId)
-
-       const autocapture = window.TOCautocapture;
+        const autocapture = window.TOCautocapture;
         const TOCautocapture = autocapture;
 
         TOCautocapture('container', {
-                locale: "es",
-                session_id: sessionId,
-               document_type: dtype,
-               document_side: "back",
-               http: true,
-           callback: function(captured_token, image){ 
-            const token_imag = captured_token
+            locale: "es",
+            session_id: sessionId,
+            document_type: dtype,
+            document_side: "back",
+            http: true,
+            callback: function(captured_token, image){ 
+            message.success('Captura Realizada', 3)
+            const token = captured_token
             const image64 = image
             console.log(captured_token)   
-            setTokenBack(token_imag)
-            setImage_category(image64)
+            setTokenBack(token)
+            setImageBack(image64)
+            setViewDiv1(true)
+            divLiveness()
         },
-           failure: function(error){ alert(error); }    
+           failure: function(error){ message.error('Se ha generado el error: ' + error)}    
        }) 
     } 
 
     const divAutocaptureFront = async (values) =>{
         console.log(dtype)
+        setViewDiv(false)
         const sessionId = await getSessionId();
         console.log('Session id', sessionId)
-
-       const autocapture = window.TOCautocapture;
+        const autocapture = window.TOCautocapture;
         const TOCautocapture = autocapture;
 
         TOCautocapture('containerfront', {
-                locale: "es",
-                session_id: sessionId,
-               document_type: dtype,
-               document_side: "front",
-               http: true,
+            locale: "es",
+            session_id: sessionId,
+            document_type: dtype,
+            document_side: "front",
+            http: true,
            callback: function(captured_token, image){ 
+            message.success('Captura Realizada', 3);
             console.log(image)  
             const imgFront = image 
             const tokenF = captured_token
             setTokenFront(tokenF)
-            setImage_category2(imgFront)
+            setImageFront(imgFront)
+            setViewDiv(true)
+            divAutocaptureBack()
         },
-           failure: function(error){ alert(error); }    
-       }) 
+        failure: function(error){ message.error('Se ha generado el error: ' + error)}    
+    }) 
     } 
 
     const divLiveness = async (values) =>{
+        setViewDiv2(false)
         const sessionId = await getSessionId();
         console.log('Session id', sessionId)
-
-       const autocapture = window.TOCliveness ;
+        const autocapture = window.TOCliveness ;
         const TOCliveness  = autocapture;
 
         TOCliveness ('liveness', {
@@ -91,10 +93,13 @@ const APIForm  = (props) => {
         session_id: sessionId,
         http: true,
         callback: function(token){ 
+        message.success('Captura Realizada', 3)
         const tl= token  
-        setTokenLiveness(tl)},
-        failure: function(error){ alert(error); }       
-       }) 
+        setTokenLiveness(tl)
+        setViewDiv2(true)
+        },
+        failure: function(error){ message.error('Se ha generado el error: ' + error)}    
+    }) 
     } 
 
     const showModal = () => {
@@ -112,36 +117,15 @@ const APIForm  = (props) => {
     const handleCancel = () => {
         console.log('Clicked cancel button');
         setVisible(false);
-      };
+    };
 
     const cols = {
         padding: 10
     };
 
-    function beforeUpload(file) {
-        const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-        if (!isJpgOrPng) {
-            message.error('You can only upload JPG/PNG file!');
-        }
-    
-        return isJpgOrPng;
-    }
-
-
-
-    const updateImage = (e) => {
-        setImage_category({object: e.target.files[0], url: URL.createObjectURL(e.target.files[0])})
-    };
-    const updateImage2 = (e) => {
-        setImage_category2({object: e.target.files[0], url: URL.createObjectURL(e.target.files[0])})
-    };
-    const updateImage3 = (e) => {
-        setImage_category3({object: e.target.files[0], url: URL.createObjectURL(e.target.files[0])})
-    };
-
     const getSessionId = async () => {
         try{
-            const response = await axios.get('http://localhost:3001/users')
+            const response = await axios.get('http://18.228.150.164:3001/session')
             console.log('Session id response', response)
             return response.data.session_id;
         }catch(err){
@@ -151,21 +135,24 @@ const APIForm  = (props) => {
 
     const apiKey = '433a8e1ed0dc4495974a9f95018eed8f' 
     const onFinish = async (values) => {
-
-        let formData = new FormData();
-        formData.append('id_front',tokenFront )
-        formData.append('id_back',tokenBack )
-        formData.append('selfie', tokenliveness)
-        formData.append('apiKey', apiKey) 
-        formData.append('documentType', "MEX2")
+        try {
+            let formData = new FormData();
+            formData.append('id_front',tokenFront )
+            formData.append('id_back',tokenBack )
+            formData.append('selfie', tokenliveness)
+            formData.append('apiKey', apiKey) 
+            formData.append('documentType', dtype)
         //const response = await axios.post(`https://sandbox-api.7oc.cl/v2/face-and-document`, formData)
-        const response = await axios.post(`https://sandbox-api.7oc.cl/v2/face-and-document`, formData)
+            const response = await axios.post(`https://sandbox-api.7oc.cl/v2/face-and-document`, formData)
             setInformation(response.data["information from document"].mrz.data)
+            setVisible(true)
         return response
+        } catch (error) {
+            message.error('Error al capturar la información');
+        }
     }
 
     return (
-
         <Form
             layout={'horizontal'}
             form={form}
@@ -173,7 +160,16 @@ const APIForm  = (props) => {
         >
             <Row>
                 <Col lg={12} xs={24} style={cols} hidden={hidden} className="text-center">
-                        <Select  placeholder="Selecciona el tipo de documento" onChange={onChange}>
+                        <div className="text-center text-white border" style={{padding:10,  backgroundColor:'#03324B'}}>
+                        <div className="card-body" style={{padding:10}}>
+                        <p className="card-text text-white ">
+                        Para verificar su identidad se necesitan fotos de su cédula de identidad y rostro, siguiendo los pasos que te mostraremos a continuación.
+                        <br/>Evite usar accesorios como lentes o sombreros
+                        <br/>Seleccione el tipo de documento para comenzar con la verificación.
+                        </p>
+                        </div>
+                        </div>
+                        <Select style={{paddingTop:10}} placeholder="Selecciona el tipo de documento" onChange={onChange}>
                             <Option value="MEX1">MEX1</Option>
                             <Option value="MEX2">MEX2</Option>
                             <Option value="MEX3">MEX3</Option>
@@ -182,44 +178,47 @@ const APIForm  = (props) => {
                 </Col>
             </Row>
             <Row>
-                <Col lg={12} xs={24} style={cols}  className="text-center">
+                <Col lg={12} xs={24} style={cols}  className="text-center text-white">
                 <div>
-                    <label className="text-center text-primary font-weight-bold">Captura</label>
+                    <label className="text-center text-white font-weight-bold">Procedimiento</label>
                 </div>
-                <Button type="primary" onClick={divAutocaptureFront}>INE Frontal
+                <Button style={{backgroundColor:'#18938B'}} type="primary" onClick={divAutocaptureFront}>Realizar Onboarding
                 </Button>
                 </Col>
             </Row>
-            <Row>
+            {/* <Row>
                 <Col lg={12} xs={24} style={cols}  className="text-center">
                     <div>
-                    <label className="text-center text-primary font-weight-bold">Captura</label>
+                    <label className="text-center text-white font-weight-bold">Captura</label>
                     </div>
                     <Button type="primary" onClick={divAutocaptureBack}>INE Posterior
                     </Button>
-                </Col></Row>
+                </Col>
+            </Row> 
 
             <Row>
                 <Col lg={12} xs={24} style={cols} className="text-center" >
                     <div>
-                    <label className="text-center text-primary font-weight-bold">Captura</label>
+                    <label className="text-center text-white font-weight-bold">Captura</label>
                     </div>
                     <Button type="primary" onClick={divLiveness}>Liveness
                     </Button>
-                </Col></Row>
+                </Col></Row>*/}
             <Row>
-                <Col lg={24} xs={24} className="text-center" style={{ alignItems: "center" }}>
+                <Col lg={24} xs={24} className="text-center" style={{ alignItems: "center", }}>
                     <Form.Item style={{ marginTop: 10, marginLeft:20 }}>
-                        <Button type="primary"
+                        <Col style={{paddingTop: 10}} className="text-center">
+                        <Button className="btn-sm"
                                 htmlType="submit"
                                 className="text-light"
-                                type="primary">
-                                Enviar
-                        </Button>
-                        <Button style={{marginLeft: 20}} type="primary" onClick={showModal}>
+                                style={{backgroundColor:'#18938B'}}
+                                >
+                                Enviar informacion capturada
+                        </Button> 
+                        </Col>
+                        <Button className="text-center text-white" style={{paddingLeft:15, backgroundColor:'#18938B'}}  onClick={showModal}>
                         informacion escaneada 
                         </Button>
-                        
                         <Modal
                             title="informacion escaneada "
                             visible={visible}
@@ -240,18 +239,33 @@ const APIForm  = (props) => {
                             <p>Numero de documento: {information["document number"] ? information["document number"] : "Documento sin escanear"}</p>
                             <br/>
                             <p>Fecha Nacimiento: {information["date of birth"] ? information["date of birth"] : "Documento sin escanear"}</p>
-                            <Image style={{width:20}} source={{uri:image_category2}}/>
                         </Modal>
                     </Form.Item>
-                </Col>
-                    {dtype}
-                
+                </Col>                
             </Row>
-            <div className="container-lg" id="containerfront">
+            <div hidden={viewDiv} className="card">
+                <div className="card-body">
+                    <p className="card-text text-center">Capture su parte frontal
+                        <div className="container-lg" style={{padding:20}} id="containerfront">
+                        </div>
+                    </p>
+                </div>
             </div>
-            <div id="container">
+            <div hidden={viewDiv1} className="card">
+                <div className="card-body">
+                    <p className="card-text text-center">Capture su parte trasera
+                        <div className="container-lg" style={{padding:20}} id="container">
+                        </div>
+                    </p>
+                </div>
             </div>
-            <div id="liveness">
+            <div hidden={viewDiv2} className="card">
+                <div className="card-body">
+                    <p className="card-text text-center">Capture su rostro
+                        <div className="container-lg" style={{padding:20}} id="liveness">
+                        </div>
+                    </p>
+                </div>
             </div>
                                
         </Form>
