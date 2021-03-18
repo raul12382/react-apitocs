@@ -49,7 +49,8 @@ const APIForm  = (props) => {
             setViewDiv1(true)
             divLiveness()
         },
-           failure: function(error){ message.error('Se ha generado el error: ' + error)}    
+           failure: function(error){ message.error('Se ha generado el error: ' + error)},
+           http: true, 
        }) 
     } 
 
@@ -66,8 +67,7 @@ const APIForm  = (props) => {
             session_id: sessionId,
             document_type: dtype,
             document_side: "front",
-            http: true,
-           callback: function(captured_token, image){ 
+            callback: function(captured_token, image){ 
             message.success('Captura Realizada', 3);
             console.log(image)  
             const imgFront = image 
@@ -77,7 +77,8 @@ const APIForm  = (props) => {
             setViewDiv(true)
             divAutocaptureBack()
         },
-        failure: function(error){ message.error('Se ha generado el error: ' + error)}    
+        failure: function(error){ message.error('Se ha generado el error: ' + error)} , 
+        http: true,
     }) 
     } 
 
@@ -98,7 +99,8 @@ const APIForm  = (props) => {
         setTokenLiveness(tl)
         setViewDiv2(true)
         },
-        failure: function(error){ message.error('Se ha generado el error: ' + error)}    
+        failure: function(error){ message.error('Se ha generado el error: ' + error)},
+        http: true, 
     }) 
     } 
 
@@ -142,7 +144,6 @@ const APIForm  = (props) => {
             formData.append('selfie', tokenliveness)
             formData.append('apiKey', apiKey) 
             formData.append('documentType', dtype)
-            formData.append('http', true)
         //const response = await axios.post(`https://sandbox-api.7oc.cl/v2/face-and-document`, formData)
             const response = await axios.post(`https://sandbox-api.7oc.cl/v2/face-and-document`, formData)
             setInformation(response.data["information from document"].mrz.data)
