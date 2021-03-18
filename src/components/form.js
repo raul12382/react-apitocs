@@ -78,7 +78,7 @@ const APIForm  = (props) => {
             divAutocaptureBack()
         },
         failure: function(error){ message.error('Se ha generado el error: ' + error)} , 
-        http: true,
+        http: false,
     }) 
     } 
 
@@ -147,6 +147,7 @@ const APIForm  = (props) => {
         //const response = await axios.post(`https://sandbox-api.7oc.cl/v2/face-and-document`, formData)
             const response = await axios.post(`https://sandbox-api.7oc.cl/v2/face-and-document`, formData)
             setInformation(response.data["information from document"].mrz.data)
+            message.success('Datos enviados correctamente', 3)
             setVisible(true)
         return response
         } catch (error) {
