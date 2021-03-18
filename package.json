@@ -2,7 +2,7 @@
   "name": "react-website-yt-1",
   "version": "0.1.0",
   "private": true,
-  "homepages" : "http://raul12382.github.io/react-apitocs",
+  "homepage" : "http://raul12382.github.io/react-apitocs",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",

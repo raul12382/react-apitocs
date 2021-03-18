@@ -142,6 +142,7 @@ const APIForm  = (props) => {
             formData.append('selfie', tokenliveness)
             formData.append('apiKey', apiKey) 
             formData.append('documentType', dtype)
+            formData.append('http', true)
         //const response = await axios.post(`https://sandbox-api.7oc.cl/v2/face-and-document`, formData)
             const response = await axios.post(`https://sandbox-api.7oc.cl/v2/face-and-document`, formData)
             setInformation(response.data["information from document"].mrz.data)
