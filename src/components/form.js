@@ -100,7 +100,7 @@ const APIForm  = (props) => {
         setViewDiv2(true)
         },
         failure: function(error){ message.error('Se ha generado el error: ' + error)},
-        http: false, 
+        https: true, 
     }) 
     } 
 
