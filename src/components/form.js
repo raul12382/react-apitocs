@@ -78,7 +78,7 @@ const APIForm  = (props) => {
             divAutocaptureBack()
         },
         failure: function(error){ message.error('Se ha generado el error: ' + error)} , 
-        http: false,
+        http: true,
     }) 
     } 
 
@@ -100,7 +100,7 @@ const APIForm  = (props) => {
         setViewDiv2(true)
         },
         failure: function(error){ message.error('Se ha generado el error: ' + error)},
-        https: true, 
+        http: true, 
     }) 
     } 
 
