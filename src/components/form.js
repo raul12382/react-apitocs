@@ -162,10 +162,10 @@ const APIForm  = (props) => {
             onFinish={onFinish}
         >
             <Row>
-                <Col lg={12} xs={24} style={cols} hidden={hidden} className="text-center">
+                <Col lg={12} xs={24} style={{textAlign:"center", display:"inline-block"}} hidden={hidden} className="text-center">
                         <div className="text-center text-white border" style={{padding:10,  backgroundColor:'#03324B'}}>
                         <div className="card-body" style={{padding:10}}>
-                        <p className="card-text text-white ">
+                        <p className="card-text text-white col d-flex">
                         Para verificar su identidad se necesitan fotos de su cédula de identidad y rostro, siguiendo los pasos que te mostraremos a continuación.
                         <br/>Evite usar accesorios como lentes o sombreros
                         <br/>Seleccione el tipo de documento para comenzar con la verificación.
@@ -185,7 +185,7 @@ const APIForm  = (props) => {
                 <div>
                     <label className="text-center text-white font-weight-bold">Procedimiento</label>
                 </div>
-                <Button style={{backgroundColor:'#18938B'}} type="primary" onClick={divAutocaptureFront}>Realizar Onboarding
+                <Button style={{backgroundColor:'#18938B', alignItems:"center"}} type="primary" onClick={divAutocaptureFront}>Realizar Onboarding
                 </Button>
                 </Col>
             </Row>
@@ -208,20 +208,15 @@ const APIForm  = (props) => {
                     </Button>
                 </Col></Row>*/}
             <Row>
-                <Col lg={24} xs={24} className="text-center" style={{ alignItems: "center", }}>
-                    <Form.Item style={{ marginTop: 10, marginLeft:20 }}>
-                        <Col style={{paddingTop: 10}} className="text-center">
+                <Col lg={24} xs={24} className="text-center" style={{ alignItems: "center" }}>
+                    <Form.Item style={{ marginTop: 10}}>
                         <Button className="btn-sm"
                                 htmlType="submit"
-                                className="text-light"
+                                className="text-light text-center"
                                 style={{backgroundColor:'#18938B'}}
                                 >
-                                Enviar informacion capturada
+                                Enviar informacion
                         </Button> 
-                        </Col>
-                        <Button className="text-center text-white" style={{paddingLeft:15, backgroundColor:'#18938B'}}  onClick={showModal}>
-                        informacion escaneada 
-                        </Button>
                         <Modal
                             title="informacion escaneada "
                             visible={visible}
@@ -244,6 +239,11 @@ const APIForm  = (props) => {
                             <p>Fecha Nacimiento: {information["date of birth"] ? information["date of birth"] : "Documento sin escanear"}</p>
                         </Modal>
                     </Form.Item>
+                    <Col style={{paddingBottom:20, textAlign:"center"}} className="text-center">
+                        <Button className="text-white" style={{backgroundColor:'#18938B'}}  onClick={showModal}>
+                            informacion escaneada 
+                        </Button>
+                    </Col>
                 </Col>                
             </Row>
             <div hidden={viewDiv} className="card">
