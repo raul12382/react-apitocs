@@ -19,6 +19,7 @@ const APIForm  = (props) => {
     const [viewDiv, setViewDiv] = useState(true)
     const [viewDiv1, setViewDiv1] = useState(true)
     const [viewDiv2, setViewDiv2] = useState(true)
+    const [match, setMatch] = useState(null)
     
     const onChange = (value) =>{
         const a = value
@@ -38,7 +39,6 @@ const APIForm  = (props) => {
             session_id: sessionId,
             document_type: dtype,
             document_side: "back",
-            http: true,
             callback: function(captured_token, image){ 
             message.success('Captura Realizada', 3)
             const token = captured_token
@@ -92,7 +92,6 @@ const APIForm  = (props) => {
         TOCliveness ('liveness', {
         locale: "es",
         session_id: sessionId,
-        http: true,
         callback: function(token){ 
         message.success('Captura Realizada', 3)
         const tl= token  
@@ -135,6 +134,19 @@ const APIForm  = (props) => {
         }
     }
 
+    const statusMatch = ()=>{
+        if (match === 2) {
+            message.success("Resultado positivo con un 99.99% de confianza.")
+            if (match === 1) {
+                message.warning("[DEPRECADO] Resultado positivo con un 96.5% de confianza.")
+            }if (match === 0) {
+                message.error("Resultado negativo de la verificación.")
+            }if (match === -1) {
+                message.error("No se ha podido encontrar una cara en la imagen enviada.")
+            }
+        }
+    }
+
     const apiKey = '433a8e1ed0dc4495974a9f95018eed8f' 
     const onFinish = async (values) => {
         try {
@@ -147,7 +159,9 @@ const APIForm  = (props) => {
         //const response = await axios.post(`https://sandbox-api.7oc.cl/v2/face-and-document`, formData)
             const response = await axios.post(`https://sandbox-api.7oc.cl/v2/face-and-document`, formData)
             setInformation(response.data["information from document"].mrz.data)
+            setMatch(response.data["biometric result"])
             message.success('Datos enviados correctamente', 3)
+            statusMatch()
             setVisible(true)
         return response
         } catch (error) {
