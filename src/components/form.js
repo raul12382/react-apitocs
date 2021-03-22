@@ -19,6 +19,7 @@ const APIForm  = (props) => {
     const [viewDiv, setViewDiv] = useState(true)
     const [viewDiv1, setViewDiv1] = useState(true)
     const [viewDiv2, setViewDiv2] = useState(true)
+    const [div, setDiv] = useState(false)
     const [match, setMatch] = useState(null)
     
     const onChange = (value) =>{
@@ -36,7 +37,7 @@ const APIForm  = (props) => {
 
         TOCautocapture('container', {
             locale: "es",
-            session_id: "00503c03e7704a88b9d9fb349747a89d",
+            session_id: sessionId,
             document_type: dtype,
             document_side: "back",
             callback: function(captured_token, image){ 
@@ -56,6 +57,7 @@ const APIForm  = (props) => {
 
     const divAutocaptureFront = async (values) =>{
         console.log(dtype)
+        setDiv(true)
         setViewDiv(false)
         const sessionId = await getSessionId();
         console.log('Session id', sessionId)
@@ -64,7 +66,7 @@ const APIForm  = (props) => {
 
         TOCautocapture('containerfront', {
             locale: "es",
-            session_id: "00503c03e7704a88b9d9fb349747a89d",
+            session_id: sessionId,
             document_type: dtype,
             document_side: "front",
             callback: function(captured_token, image){ 
@@ -83,6 +85,7 @@ const APIForm  = (props) => {
     } 
 
     const divLiveness = async (values) =>{
+
         setViewDiv2(false)
         const sessionId = await getSessionId();
         console.log('Session id', sessionId)
@@ -91,7 +94,7 @@ const APIForm  = (props) => {
 
         TOCliveness ('liveness', {
         locale: "es",
-        session_id: "00503c03e7704a88b9d9fb349747a89d",
+        session_id: sessionId,
         callback: function(token){ 
         message.success('Captura Realizada', 3)
         const tl= token  
@@ -126,7 +129,7 @@ const APIForm  = (props) => {
 
     const getSessionId = async () => {
         try{
-            const response = await axios.get('http://18.228.150.164:3001/session')
+            const response = await axios.get('http://54.232.52.181:3001/session')
             console.log('Session id response', response)
             return response.data.session_id;
         }catch(err){
@@ -175,7 +178,8 @@ const APIForm  = (props) => {
             form={form}
             onFinish={onFinish}
         >
-            <Row>
+           <div hidden={div}>
+           <Row>
                 <Col lg={12} xs={24} style={{textAlign:"center", display:"inline-block"}} hidden={hidden} className="text-center">
                         <div className="text-center text-white border" style={{padding:10,  backgroundColor:'#03324B'}}>
                         <div className="card-body" style={{padding:10}}>
@@ -260,6 +264,8 @@ const APIForm  = (props) => {
                     </Col>
                 </Col>                
             </Row>
+            </div> 
+            
             <div hidden={viewDiv} className="card">
                 <div className="card-body">
                     <p className="card-text text-center">Capture su parte frontal
