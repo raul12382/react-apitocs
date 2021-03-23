@@ -37,7 +37,7 @@ const APIForm  = (props) => {
 
         TOCautocapture('container', {
             locale: "es",
-            session_id: "661d082955b44e29b468a2a0b2d2861a",
+            session_id: "99e7dfcef8b047b49bb314311343355c",
             document_type: dtype,
             document_side: "back",
             callback: function(captured_token, image){ 
@@ -66,7 +66,7 @@ const APIForm  = (props) => {
 
         TOCautocapture('containerfront', {
             locale: "es",
-            session_id: "661d082955b44e29b468a2a0b2d2861a",
+            session_id: "99e7dfcef8b047b49bb314311343355c",
             document_type: dtype,
             document_side: "front",
             callback: function(captured_token, image){ 
@@ -94,7 +94,7 @@ const APIForm  = (props) => {
 
         TOCliveness ('liveness', {
         locale: "es",
-        session_id: "661d082955b44e29b468a2a0b2d2861a",
+        session_id: "99e7dfcef8b047b49bb314311343355c",
         callback: function(token){ 
         message.success('Captura Realizada', 3)
         const tl= token  
@@ -178,7 +178,6 @@ const APIForm  = (props) => {
             form={form}
             onFinish={onFinish}
         >
-           <div hidden={div}>
            <Row>
                 <Col lg={12} xs={24} style={{textAlign:"center", display:"inline-block"}} hidden={hidden} className="text-center">
                         <div className="text-center text-white border" style={{padding:10,  backgroundColor:'#03324B'}}>
@@ -263,9 +262,7 @@ const APIForm  = (props) => {
                         </Button>
                     </Col>
                 </Col>                
-            </Row>
-            </div> 
-            
+            </Row>            
             <div hidden={viewDiv} className="card">
                 <div className="card-body">
                     <p className="card-text text-center">Capture su parte frontal
