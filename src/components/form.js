@@ -37,7 +37,7 @@ const APIForm  = (props) => {
 
         TOCautocapture('container', {
             locale: "es",
-            session_id: "c5c2e2b99b0f48899459c8f7e2718dee",
+            session_id: "24c9d86347a84ff193ac94b041960060",
             document_type: dtype,
             document_side: "back",
             callback: function(captured_token, image){ 
@@ -66,7 +66,7 @@ const APIForm  = (props) => {
 
         TOCautocapture('containerfront', {
             locale: "es",
-            session_id: "c5c2e2b99b0f48899459c8f7e2718dee",
+            session_id: "24c9d86347a84ff193ac94b041960060",
             document_type: dtype,
             document_side: "front",
             callback: function(captured_token, image){ 
@@ -94,7 +94,7 @@ const APIForm  = (props) => {
 
         TOCliveness ('liveness', {
         locale: "es",
-        session_id: "c5c2e2b99b0f48899459c8f7e2718dee",
+        session_id: "24c9d86347a84ff193ac94b041960060",
         callback: function(token){ 
         message.success('Captura Realizada', 3)
         const tl= token  
@@ -238,7 +238,7 @@ const APIForm  = (props) => {
                             onOk={handleOk}
                             confirmLoading={confirmLoading}
                             onCancel={handleCancel}
-                        >   <span>Resultado Biometrico: </span> <p>{information["biometric result"]}</p>
+                        >   
                             <p>Apellidos Paternos: {information["family name"] ? information["family name"] : "Documento sin escanear"}</p>
                             <br/>
                             <p>Nombre Completo: {information.name ?  information.name : "Documento sin escanear"}</p>
