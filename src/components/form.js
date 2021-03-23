@@ -37,7 +37,7 @@ const APIForm  = (props) => {
 
         TOCautocapture('container', {
             locale: "es",
-            session_id: "4e7baccc0a844b8dbe4b14636cad9a3d",
+            session_id: "457a54ee2c674ba4a98356a7c86355ad",
             document_type: dtype,
             document_side: "back",
             callback: function(captured_token, image){ 
@@ -66,7 +66,7 @@ const APIForm  = (props) => {
 
         TOCautocapture('containerfront', {
             locale: "es",
-            session_id: "4e7baccc0a844b8dbe4b14636cad9a3d",
+            session_id: "457a54ee2c674ba4a98356a7c86355ad",
             document_type: dtype,
             document_side: "front",
             callback: function(captured_token, image){ 
@@ -94,7 +94,7 @@ const APIForm  = (props) => {
 
         TOCliveness ('liveness', {
         locale: "es",
-        session_id: "4e7baccc0a844b8dbe4b14636cad9a3d",
+        session_id: "457a54ee2c674ba4a98356a7c86355ad",
         callback: function(token){ 
         message.success('Captura Realizada', 3)
         const tl= token  
@@ -166,7 +166,7 @@ const APIForm  = (props) => {
             setVisible(true)
         return response
         } catch (error) {
-            message.error('Error al capturar la información');
+¿            message.error('Error al capturar la información');
         }
     }
 
@@ -238,7 +238,7 @@ const APIForm  = (props) => {
                             onOk={handleOk}
                             confirmLoading={confirmLoading}
                             onCancel={handleCancel}
-                        >   
+                        >   <p>Resultado Biometrico: {information["biometric result"]}</p>
                             <p>Apellidos Paternos: {information["family name"] ? information["family name"] : "Documento sin escanear"}</p>
                             <br/>
                             <p>Nombre Completo: {information.name ?  information.name : "Documento sin escanear"}</p>
