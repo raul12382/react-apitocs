@@ -37,7 +37,7 @@ const APIForm  = (props) => {
 
         TOCautocapture('container', {
             locale: "es",
-            session_id: "1b344e53fb2547779ee319ce6d9b593b",
+            session_id: "c9ee6de7d7a640609f0455d062b705b4",
             document_type: dtype,
             document_side: "back",
             callback: function(captured_token, image){ 
@@ -66,7 +66,7 @@ const APIForm  = (props) => {
 
         TOCautocapture('containerfront', {
             locale: "es",
-            session_id: "1b344e53fb2547779ee319ce6d9b593b",
+            session_id: "c9ee6de7d7a640609f0455d062b705b4",
             document_type: dtype,
             document_side: "front",
             callback: function(captured_token, image){ 
@@ -94,7 +94,7 @@ const APIForm  = (props) => {
 
         TOCliveness ('liveness', {
         locale: "es",
-        session_id: "1b344e53fb2547779ee319ce6d9b593b",
+        session_id: "c9ee6de7d7a640609f0455d062b705b4",
         callback: function(token){ 
         message.success('Captura Realizada', 3)
         const tl= token  
@@ -162,9 +162,7 @@ const APIForm  = (props) => {
         //const response = await axios.post(`https://sandbox-api.7oc.cl/v2/face-and-document`, formData)
             const response = await axios.post(`https://sandbox-api.7oc.cl/v2/face-and-document`, formData)
             setInformation(response.data["information from document"].mrz.data)
-            setMatch(response.data["biometric result"])
             message.success('Datos enviados correctamente', 3)
-            statusMatch()
             setVisible(true)
         return response
         } catch (error) {
@@ -240,7 +238,7 @@ const APIForm  = (props) => {
                             onOk={handleOk}
                             confirmLoading={confirmLoading}
                             onCancel={handleCancel}
-                        >   <span>Resultado Biometrico: </span> <p style={{color:"green"}}>{match}</p>
+                        >   <span>Resultado Biometrico: </span> <p>{(information["biometric result"] === 1 ? "Resultado positivo con un 99.99% de confianza. ":"Resultado negativo" )}</p>
                             <p>Apellidos Paternos: {information["family name"] ? information["family name"] : "Documento sin escanear"}</p>
                             <br/>
                             <p>Nombre Completo: {information.name ?  information.name : "Documento sin escanear"}</p>
