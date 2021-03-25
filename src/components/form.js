@@ -29,6 +29,9 @@ const APIForm  = (props) => {
         setHidden(true)
         console.log(dtype)
     }
+
+
+
     const divAutocaptureBack = async (values) =>{
         setViewDiv1(false)
         const sessionId = await getSessionId();
@@ -38,7 +41,7 @@ const APIForm  = (props) => {
 
         TOCautocapture('container', {
             locale: "es",
-            session_id: "83143e84a3d04fc79e074a3da21c4076",
+            session_id: "2584e90c975b4ea1a2278ede44e94f9d",
             document_type: dtype,
             document_side: "back",
             callback: function(captured_token, image){ 
@@ -67,7 +70,7 @@ const APIForm  = (props) => {
 
         TOCautocapture('containerfront', {
             locale: "es",
-            session_id: "83143e84a3d04fc79e074a3da21c4076",
+            session_id: "2584e90c975b4ea1a2278ede44e94f9d",
             document_type: dtype,
             document_side: "front",
             callback: function(captured_token, image){ 
@@ -92,10 +95,9 @@ const APIForm  = (props) => {
         console.log('Session id', sessionId)
         const autocapture = window.TOCliveness ;
         const TOCliveness  = autocapture;
-
         TOCliveness ('liveness', {
         locale: "es",
-        session_id: "83143e84a3d04fc79e074a3da21c4076",
+        session_id: "2584e90c975b4ea1a2278ede44e94f9d",
         callback: function(token){ 
         message.success('Captura Realizada', 3)
         const tl= token  
@@ -107,6 +109,8 @@ const APIForm  = (props) => {
         http: true, 
     }) 
     } 
+
+
 
     const showModal = () => {
         setVisible(true);
@@ -139,7 +143,7 @@ const APIForm  = (props) => {
         }
     }
 
-    const statusMatch = ()=>{
+/*     const statusMatch = ()=>{
         if (match === 2) {
             message.success("Resultado positivo con un 99.99% de confianza.")
             if (match === 1) {
@@ -150,7 +154,7 @@ const APIForm  = (props) => {
                 message.error("No se ha podido encontrar una cara en la imagen enviada.")
             }
         }
-    }
+    } */
 
     const apiKey = '433a8e1ed0dc4495974a9f95018eed8f' 
     const onFinish = async (values) => {
@@ -193,11 +197,10 @@ const APIForm  = (props) => {
                         </p>
                         </div>
                         </div>
-                        <Select style={{paddingTop:10}} placeholder="Selecciona el tipo de documento" onChange={onChange}>
-                            <Option value="MEX1"><Image preview={false} src="https://demo.toc.ai/static/id_mex1.png">MEX1</Image></Option>
+                        <Select style={{paddingTop:10}} hidden={hidden} placeholder="Selecciona el tipo de documento" onChange={onChange}>
+                            <Option value="MEX1"><Image preview={false} src="https://demo.toc.ai/static/id_mex1.png"></Image></Option>
                             <Option value="MEX2"><Image preview={false} src="https://demo.toc.ai/static/id_mex2.png">MEX2</Image></Option>
                             <Option value="MEX3"><Image preview={false} src="https://demo.toc.ai/static/id_mex3.png">MEX3</Image></Option>
-
                         </Select>
                 </Col>
             </Row>
