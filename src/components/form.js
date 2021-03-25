@@ -194,9 +194,9 @@ const APIForm  = (props) => {
                         </div>
                         </div>
                         <Select style={{paddingTop:10}} placeholder="Selecciona el tipo de documento" onChange={onChange}>
-                            <Option value="MEX1">MEX1</Option>
-                            <Option value="MEX2">MEX2</Option>
-                            <Option value="MEX3">MEX3</Option>
+                            <Option value="MEX1"><Image src="https://demo.toc.ai/static/id_mex1.png"></Image></Option>
+                            <Option value="MEX2"><Image></Image></Option>
+                            <Option value="MEX3"><Image></Image></Option>
 
                         </Select>
                 </Col>
