@@ -37,7 +37,7 @@ const APIForm  = (props) => {
 
         TOCautocapture('container', {
             locale: "es",
-            session_id: "862d8244f2774f89acf2d1b58282d328",
+            session_id: "7d8f42112d594d13a69a82d447b035e9",
             document_type: dtype,
             document_side: "back",
             callback: function(captured_token, image){ 
@@ -66,7 +66,7 @@ const APIForm  = (props) => {
 
         TOCautocapture('containerfront', {
             locale: "es",
-            session_id: "862d8244f2774f89acf2d1b58282d328",
+            session_id: "7d8f42112d594d13a69a82d447b035e9",
             document_type: dtype,
             document_side: "front",
             callback: function(captured_token, image){ 
@@ -94,7 +94,7 @@ const APIForm  = (props) => {
 
         TOCliveness ('liveness', {
         locale: "es",
-        session_id: "862d8244f2774f89acf2d1b58282d328",
+        session_id: "7d8f42112d594d13a69a82d447b035e9",
         callback: function(token){ 
         message.success('Captura Realizada', 3)
         const tl= token  
@@ -166,7 +166,7 @@ const APIForm  = (props) => {
             setVisible(true)
         return response
         } catch (error) {
-¿            message.error('Error al capturar la información');
+            message.error('Error al capturar la información');
         }
     }
 
@@ -264,7 +264,7 @@ const APIForm  = (props) => {
             <div hidden={viewDiv} className="card">
                 <div className="card-body">
                     <p className="card-text text-center">Capture su parte frontal
-                        <div style={{width:50, height:50}}  id="containerfront">
+                        <div style={{width:50, height:50}} id="containerfront">
                         </div>
                     </p>
                 </div>
@@ -272,7 +272,7 @@ const APIForm  = (props) => {
             <div hidden={viewDiv1} className="card">
                 <div className="card-body">
                     <p className="card-text text-center">Capture su parte trasera
-                        <div  style={{width:50, height:50}} id="container">
+                        <div style={{width:50, height:50}} id="container">
                         </div>
                     </p>
                 </div>
@@ -280,7 +280,7 @@ const APIForm  = (props) => {
             <div hidden={viewDiv2} className="card">
                 <div className="card-body">
                     <p className="card-text text-center">Capture su rostro
-                        <div  style={{width:50, height:50}} id="liveness">
+                        <div style={{width:50, height:50}} id="liveness">
                         </div>
                     </p>
                 </div>
