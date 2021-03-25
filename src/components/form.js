@@ -37,7 +37,7 @@ const APIForm  = (props) => {
 
         TOCautocapture('container', {
             locale: "es",
-            session_id: "7d8f42112d594d13a69a82d447b035e9",
+            session_id: "b8a6d05cc4b54d0a93453e5c67944702",
             document_type: dtype,
             document_side: "back",
             callback: function(captured_token, image){ 
@@ -66,7 +66,7 @@ const APIForm  = (props) => {
 
         TOCautocapture('containerfront', {
             locale: "es",
-            session_id: "7d8f42112d594d13a69a82d447b035e9",
+            session_id: "b8a6d05cc4b54d0a93453e5c67944702",
             document_type: dtype,
             document_side: "front",
             callback: function(captured_token, image){ 
@@ -94,12 +94,13 @@ const APIForm  = (props) => {
 
         TOCliveness ('liveness', {
         locale: "es",
-        session_id: "7d8f42112d594d13a69a82d447b035e9",
+        session_id: "b8a6d05cc4b54d0a93453e5c67944702",
         callback: function(token){ 
         message.success('Captura Realizada', 3)
         const tl= token  
         setTokenLiveness(tl)
         setViewDiv2(true)
+        onFinish()
         },
         failure: function(error){ message.error('Se ha generado el error: ' + error)},
         http: true, 
@@ -152,7 +153,7 @@ const APIForm  = (props) => {
 
     const apiKey = '433a8e1ed0dc4495974a9f95018eed8f' 
     const onFinish = async (values) => {
-        try {
+       try {
             let formData = new FormData();
             formData.append('id_front',tokenFront )
             formData.append('id_back',tokenBack )
@@ -176,7 +177,7 @@ const APIForm  = (props) => {
             form={form}
             onFinish={onFinish}
         >
-           <Row>
+           <Row hidden={div}>
                 <Col lg={12} xs={24} style={{textAlign:"center", display:"inline-block"}} hidden={hidden} className="text-center">
                         <div className="text-center text-white border" style={{padding:10,  backgroundColor:'#03324B'}}>
                         <div className="card-body" style={{padding:10}}>
@@ -222,7 +223,7 @@ const APIForm  = (props) => {
                     <Button type="primary" onClick={divLiveness}>Liveness
                     </Button>
                 </Col></Row>*/}
-            <Row>
+            <Row hidden={div}>
                 <Col lg={24} xs={24} className="text-center" style={{ alignItems: "center" }}>
                     <Form.Item style={{ marginTop: 10}}>
                         <Button className="btn-sm"
@@ -232,7 +233,16 @@ const APIForm  = (props) => {
                                 >
                                 Enviar informacion
                         </Button> 
-                        <Modal
+                       
+                    </Form.Item>
+                    <Col style={{paddingBottom:20, textAlign:"center"}} className="text-center">
+                        <Button className="text-white" style={{backgroundColor:'#18938B'}}  onClick={showModal}>
+                            informacion escaneada 
+                        </Button>
+                    </Col>
+                </Col>                
+            </Row> 
+            <Modal
                             title="informacion escaneada "
                             visible={visible}
                             onOk={handleOk}
@@ -252,15 +262,7 @@ const APIForm  = (props) => {
                             <p>Numero de documento: {information["document number"] ? information["document number"] : "Documento sin escanear"}</p>
                             <br/>
                             <p>Fecha Nacimiento: {information["date of birth"] ? information["date of birth"] : "Documento sin escanear"}</p>
-                        </Modal>
-                    </Form.Item>
-                    <Col style={{paddingBottom:20, textAlign:"center"}} className="text-center">
-                        <Button className="text-white" style={{backgroundColor:'#18938B'}}  onClick={showModal}>
-                            informacion escaneada 
-                        </Button>
-                    </Col>
-                </Col>                
-            </Row>            
+            </Modal>
             <div hidden={viewDiv} className="card">
                 <div className="card-body">
                     <p className="card-text text-center">Capture su parte frontal
