@@ -38,7 +38,7 @@ const APIForm  = (props) => {
 
         TOCautocapture('container', {
             locale: "es",
-            session_id: "ad8c33ce28dd49b28881f5c43067eafa",
+            session_id: "230ec505b43a4ec1b12c965cad5be43d",
             document_type: dtype,
             document_side: "back",
             callback: function(captured_token, image){ 
@@ -67,7 +67,7 @@ const APIForm  = (props) => {
 
         TOCautocapture('containerfront', {
             locale: "es",
-            session_id: "ad8c33ce28dd49b28881f5c43067eafa",
+            session_id: "230ec505b43a4ec1b12c965cad5be43d",
             document_type: dtype,
             document_side: "front",
             callback: function(captured_token, image){ 
@@ -95,7 +95,7 @@ const APIForm  = (props) => {
 
         TOCliveness ('liveness', {
         locale: "es",
-        session_id: "ad8c33ce28dd49b28881f5c43067eafa",
+        session_id: "230ec505b43a4ec1b12c965cad5be43d",
         callback: function(token){ 
         message.success('Captura Realizada', 3)
         const tl= token  
