@@ -30,8 +30,6 @@ const APIForm  = (props) => {
         console.log(dtype)
     }
 
-
-
     const divAutocaptureBack = async (values) =>{
         setViewDiv1(false)
         const sessionId = await getSessionId();
@@ -41,7 +39,7 @@ const APIForm  = (props) => {
 
         TOCautocapture('container', {
             locale: "es",
-            session_id: "2584e90c975b4ea1a2278ede44e94f9d",
+            session_id: "f78a1ee7251349fdbd4c5ff88a7e8c93",
             document_type: dtype,
             document_side: "back",
             callback: function(captured_token, image){ 
@@ -70,7 +68,7 @@ const APIForm  = (props) => {
 
         TOCautocapture('containerfront', {
             locale: "es",
-            session_id: "2584e90c975b4ea1a2278ede44e94f9d",
+            session_id: "f78a1ee7251349fdbd4c5ff88a7e8c93",
             document_type: dtype,
             document_side: "front",
             callback: function(captured_token, image){ 
@@ -97,7 +95,7 @@ const APIForm  = (props) => {
         const TOCliveness  = autocapture;
         TOCliveness ('liveness', {
         locale: "es",
-        session_id: "2584e90c975b4ea1a2278ede44e94f9d",
+        session_id: "f78a1ee7251349fdbd4c5ff88a7e8c93",
         callback: function(token){ 
         message.success('Captura Realizada', 3)
         const tl= token  
@@ -165,6 +163,7 @@ const APIForm  = (props) => {
             formData.append('selfie', tokenliveness)
             formData.append('apiKey', apiKey) 
             formData.append('documentType', dtype)
+            formData.submit()
         //const response = await axios.post(`https://sandbox-api.7oc.cl/v2/face-and-document`, formData)
             const response = await axios.post(`https://sandbox-api.7oc.cl/v2/face-and-document`, formData)
             setInformation(response.data["information from document"].mrz.data)
@@ -175,7 +174,6 @@ const APIForm  = (props) => {
             message.error('Error al capturar la información');
         }
     }
-
     return (
         <div>
              
@@ -274,10 +272,10 @@ const APIForm  = (props) => {
            
             
         </Form>
-            <div className="container container-fluid" hidden={viewDiv} style={{height:100, textAlign:"center", marginBottom:"auto", marginTop:"auto"}} id="containerfront">
+            <div className="container container-fluid" hidden={viewDiv} style={{height:1200, textAlign:"center", marginBottom:"auto", marginTop:"auto"}} id="containerfront">
             
             </div>
-            <div  className="container container-fluid"  hidden={viewDiv1} style={{height:100}} id="container">
+            <div  className="container container-fluid"  hidden={viewDiv1} style={{height:1200}} id="container">
             
             </div>
             <div  className="container container-fluid"  hidden={viewDiv2} style={{height:100}} id="liveness">
