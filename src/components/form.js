@@ -38,7 +38,7 @@ const APIForm  = (props) => {
 
         TOCautocapture('container', {
             locale: "es",
-            session_id: "faa6b0020a284de2a5b9a692b15fcbb0",
+            session_id: "ad8c33ce28dd49b28881f5c43067eafa",
             document_type: dtype,
             document_side: "back",
             callback: function(captured_token, image){ 
@@ -67,7 +67,7 @@ const APIForm  = (props) => {
 
         TOCautocapture('containerfront', {
             locale: "es",
-            session_id: "faa6b0020a284de2a5b9a692b15fcbb0",
+            session_id: "ad8c33ce28dd49b28881f5c43067eafa",
             document_type: dtype,
             document_side: "front",
             callback: function(captured_token, image){ 
@@ -95,13 +95,13 @@ const APIForm  = (props) => {
 
         TOCliveness ('liveness', {
         locale: "es",
-        session_id: "faa6b0020a284de2a5b9a692b15fcbb0",
+        session_id: "ad8c33ce28dd49b28881f5c43067eafa",
         callback: function(token){ 
         message.success('Captura Realizada', 3)
         const tl= token  
         setTokenLiveness(tl)
         setViewDiv2(true)
-        onFinish()
+        await onFinish()
         },
         failure: function(error){ message.error('Se ha generado el error: ' + error)},
         http: true, 

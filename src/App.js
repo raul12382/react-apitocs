@@ -16,22 +16,8 @@ function App(props) {
 
 
   return (
-  /*  <Router>
-    <Api_Facial/>
-    <Route path="/Form" exact component={Form}/>
-    </Router> */
-    <Col xs={24}>
-      <div  style={{backgroundColor:'#03324B'}}>
-       <Form/>
-      </div>
-      {/* <footer className="bg-light text-center text-lg-start">
-      <div className="text-center p-3" style={{backgroundColor: '#03324B'}}>
-        © 2020 Copyright:
-        <a className="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
-      </div>
-      </footer> */}
-    </Col>
-  );
+    <Form/>
+  )
 }
 
 export default App;
