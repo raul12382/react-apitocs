@@ -37,7 +37,7 @@ const APIForm  = (props) => {
 
         TOCautocapture('container', {
             locale: "es",
-            session_id: "b8a6d05cc4b54d0a93453e5c67944702",
+            session_id: "0634065de7444e689d984d24cf220221",
             document_type: dtype,
             document_side: "back",
             callback: function(captured_token, image){ 
@@ -66,7 +66,7 @@ const APIForm  = (props) => {
 
         TOCautocapture('containerfront', {
             locale: "es",
-            session_id: "b8a6d05cc4b54d0a93453e5c67944702",
+            session_id: "0634065de7444e689d984d24cf220221",
             document_type: dtype,
             document_side: "front",
             callback: function(captured_token, image){ 
@@ -94,7 +94,7 @@ const APIForm  = (props) => {
 
         TOCliveness ('liveness', {
         locale: "es",
-        session_id: "b8a6d05cc4b54d0a93453e5c67944702",
+        session_id: "0634065de7444e689d984d24cf220221",
         callback: function(token){ 
         message.success('Captura Realizada', 3)
         const tl= token  
@@ -178,7 +178,7 @@ const APIForm  = (props) => {
             onFinish={onFinish}
         >
            <Row hidden={div}>
-                <Col lg={12} xs={24} style={{textAlign:"center", display:"inline-block"}} hidden={hidden} className="text-center">
+                <Col lg={12} xs={24} style={{textAlign:"center", display:"inline-block"}} className="text-center">
                         <div className="text-center text-white border" style={{padding:10,  backgroundColor:'#03324B'}}>
                         <div className="card-body" style={{padding:10}}>
                         <p className="card-text text-white col d-flex">
@@ -266,7 +266,7 @@ const APIForm  = (props) => {
             <div hidden={viewDiv} className="card">
                 <div className="card-body">
                     <p className="card-text text-center">Capture su parte frontal
-                        <div style={{width:50, height:50}} id="containerfront">
+                        <div style={{padding:20}} id="containerfront">
                         </div>
                     </p>
                 </div>
@@ -274,7 +274,7 @@ const APIForm  = (props) => {
             <div hidden={viewDiv1} className="card">
                 <div className="card-body">
                     <p className="card-text text-center">Capture su parte trasera
-                        <div style={{width:50, height:50}} id="container">
+                        <div style={{padding:20}} id="container">
                         </div>
                     </p>
                 </div>
@@ -282,7 +282,7 @@ const APIForm  = (props) => {
             <div hidden={viewDiv2} className="card">
                 <div className="card-body">
                     <p className="card-text text-center">Capture su rostro
-                        <div style={{width:50, height:50}} id="liveness">
+                        <div style={{padding:20}} id="liveness">
                         </div>
                     </p>
                 </div>
