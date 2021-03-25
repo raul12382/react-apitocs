@@ -38,7 +38,7 @@ const APIForm  = (props) => {
 
         TOCautocapture('container', {
             locale: "es",
-            session_id: "230ec505b43a4ec1b12c965cad5be43d",
+            session_id: "83143e84a3d04fc79e074a3da21c4076",
             document_type: dtype,
             document_side: "back",
             callback: function(captured_token, image){ 
@@ -67,7 +67,7 @@ const APIForm  = (props) => {
 
         TOCautocapture('containerfront', {
             locale: "es",
-            session_id: "230ec505b43a4ec1b12c965cad5be43d",
+            session_id: "83143e84a3d04fc79e074a3da21c4076",
             document_type: dtype,
             document_side: "front",
             callback: function(captured_token, image){ 
@@ -95,13 +95,13 @@ const APIForm  = (props) => {
 
         TOCliveness ('liveness', {
         locale: "es",
-        session_id: "230ec505b43a4ec1b12c965cad5be43d",
+        session_id: "83143e84a3d04fc79e074a3da21c4076",
         callback: function(token){ 
         message.success('Captura Realizada', 3)
         const tl= token  
         setTokenLiveness(tl)
-        setViewDiv2(true)
         onFinish()
+        setViewDiv2(true)
         },
         failure: function(error){ message.error('Se ha generado el error: ' + error)},
         http: true, 
@@ -271,13 +271,13 @@ const APIForm  = (props) => {
            
             
         </Form>
-            <div hidden={viewDiv} style={{height:100}} id="containerfront">
+            <div className="container container-fluid" hidden={viewDiv} style={{height:100, textAlign:"center", marginBottom:"auto", marginTop:"auto"}} id="containerfront">
             
             </div>
-            <div hidden={viewDiv1} style={{height:100}} id="container">
+            <div  className="container container-fluid"  hidden={viewDiv1} style={{height:100}} id="container">
             
             </div>
-            <div hidden={viewDiv2} style={{height:100}} id="liveness">
+            <div  className="container container-fluid"  hidden={viewDiv2} style={{height:100}} id="liveness">
             
             </div>
         </div>
