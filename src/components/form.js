@@ -37,7 +37,7 @@ const APIForm  = (props) => {
 
         TOCautocapture('container', {
             locale: "es",
-            session_id: "457a54ee2c674ba4a98356a7c86355ad",
+            session_id: "862d8244f2774f89acf2d1b58282d328",
             document_type: dtype,
             document_side: "back",
             callback: function(captured_token, image){ 
@@ -66,7 +66,7 @@ const APIForm  = (props) => {
 
         TOCautocapture('containerfront', {
             locale: "es",
-            session_id: "457a54ee2c674ba4a98356a7c86355ad",
+            session_id: "862d8244f2774f89acf2d1b58282d328",
             document_type: dtype,
             document_side: "front",
             callback: function(captured_token, image){ 
@@ -94,7 +94,7 @@ const APIForm  = (props) => {
 
         TOCliveness ('liveness', {
         locale: "es",
-        session_id: "457a54ee2c674ba4a98356a7c86355ad",
+        session_id: "862d8244f2774f89acf2d1b58282d328",
         callback: function(token){ 
         message.success('Captura Realizada', 3)
         const tl= token  
@@ -264,7 +264,7 @@ const APIForm  = (props) => {
             <div hidden={viewDiv} className="card">
                 <div className="card-body">
                     <p className="card-text text-center">Capture su parte frontal
-                        <div  id="containerfront">
+                        <div style={{width:50, height:50}}  id="containerfront">
                         </div>
                     </p>
                 </div>
@@ -272,7 +272,7 @@ const APIForm  = (props) => {
             <div hidden={viewDiv1} className="card">
                 <div className="card-body">
                     <p className="card-text text-center">Capture su parte trasera
-                        <div id="container">
+                        <div  style={{width:50, height:50}} id="container">
                         </div>
                     </p>
                 </div>
@@ -280,7 +280,7 @@ const APIForm  = (props) => {
             <div hidden={viewDiv2} className="card">
                 <div className="card-body">
                     <p className="card-text text-center">Capture su rostro
-                        <div id="liveness">
+                        <div  style={{width:50, height:50}} id="liveness">
                         </div>
                     </p>
                 </div>
