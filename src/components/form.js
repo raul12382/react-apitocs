@@ -1,6 +1,7 @@
 import {Button, Col, Form, Row, Select, message, Modal, Image} from "antd";
 import React, { useState} from "react";
 import axios from "axios";
+import ApiFacial from "../apiFacil/index";
 const {Option} = Select;
 
 const APIForm  = (props) => {
@@ -37,7 +38,7 @@ const APIForm  = (props) => {
 
         TOCautocapture('container', {
             locale: "es",
-            session_id: "0634065de7444e689d984d24cf220221",
+            session_id: "faa6b0020a284de2a5b9a692b15fcbb0",
             document_type: dtype,
             document_side: "back",
             callback: function(captured_token, image){ 
@@ -66,7 +67,7 @@ const APIForm  = (props) => {
 
         TOCautocapture('containerfront', {
             locale: "es",
-            session_id: "0634065de7444e689d984d24cf220221",
+            session_id: "faa6b0020a284de2a5b9a692b15fcbb0",
             document_type: dtype,
             document_side: "front",
             callback: function(captured_token, image){ 
@@ -94,7 +95,7 @@ const APIForm  = (props) => {
 
         TOCliveness ('liveness', {
         locale: "es",
-        session_id: "0634065de7444e689d984d24cf220221",
+        session_id: "faa6b0020a284de2a5b9a692b15fcbb0",
         callback: function(token){ 
         message.success('Captura Realizada', 3)
         const tl= token  
@@ -172,11 +173,15 @@ const APIForm  = (props) => {
     }
 
     return (
+        <div>
+             
         <Form
-            layout={'horizontal'}
             form={form}
             onFinish={onFinish}
-        >
+        >   
+            <div hidden={div}>
+                <ApiFacial/>                   
+            </div>
            <Row hidden={div}>
                 <Col lg={12} xs={24} style={{textAlign:"center", display:"inline-block"}} className="text-center">
                         <div className="text-center text-white border" style={{padding:10,  backgroundColor:'#03324B'}}>
@@ -196,7 +201,7 @@ const APIForm  = (props) => {
                         </Select>
                 </Col>
             </Row>
-            <Row>
+            <Row hidden={div}>
                 <Col lg={12} xs={24} style={cols}  className="text-center text-white">
                 <div>
                     <label className="text-center text-white font-weight-bold">Procedimiento</label>
@@ -263,34 +268,19 @@ const APIForm  = (props) => {
                             <br/>
                             <p>Fecha Nacimiento: {information["date of birth"] ? information["date of birth"] : "Documento sin escanear"}</p>
             </Modal>
-            <div hidden={viewDiv} className="card">
-                <div className="card-body">
-                    <p className="card-text text-center">Capture su parte frontal
-                        <div style={{padding:20}} id="containerfront">
-                        </div>
-                    </p>
-                </div>
-            </div>
-            <div hidden={viewDiv1} className="card">
-                <div className="card-body">
-                    <p className="card-text text-center">Capture su parte trasera
-                        <div style={{padding:20}} id="container">
-                        </div>
-                    </p>
-                </div>
-            </div>
-            <div hidden={viewDiv2} className="card">
-                <div className="card-body">
-                    <p className="card-text text-center">Capture su rostro
-                        <div style={{padding:20}} id="liveness">
-                        </div>
-                    </p>
-                </div>
-            </div>
-                               
+           
+            
         </Form>
-
-        
+            <div hidden={viewDiv} style={{height:100}} id="containerfront">
+            
+            </div>
+            <div hidden={viewDiv1} style={{height:100}} id="container">
+            
+            </div>
+            <div hidden={viewDiv2} style={{height:100}} id="liveness">
+            
+            </div>
+        </div>
     );
 }
 

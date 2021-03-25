@@ -11,7 +11,10 @@ import {
   BrowserRouter as Router, Route,
 } from "react-router-dom";
 
-function App() {
+
+function App(props) {
+
+
   return (
   /*  <Router>
     <Api_Facial/>
@@ -19,10 +22,7 @@ function App() {
     </Router> */
     <Col xs={24}>
       <div  style={{backgroundColor:'#03324B'}}>
-      <Router>
-       <Api_Facial/>
-      <Route path="/Form" exact component={Form}/>
-    </Router> 
+       <Form/>
       </div>
       {/* <footer className="bg-light text-center text-lg-start">
       <div className="text-center p-3" style={{backgroundColor: '#03324B'}}>
