@@ -101,7 +101,7 @@ const APIForm  = (props) => {
         const tl= token  
         setTokenLiveness(tl)
         setViewDiv2(true)
-        await onFinish()
+        onFinish()
         },
         failure: function(error){ message.error('Se ha generado el error: ' + error)},
         http: true, 
