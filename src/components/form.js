@@ -41,7 +41,7 @@ const APIForm  = (props) => {
 
         TOCautocapture('container', { //accedemos a ella con los parametrros indicados con el id container
             locale: "es",//idioma 
-            session_id: "a3fb9e217e40413fa62a312d6feb7c3f",//la session generada previamente
+            session_id: "477f204df5f74d97a1fb443cb503a1ba",//la session generada previamente
             document_type: dtype, //el tipo de coumento
             document_side: "back",//parte trasera o frontal del documentp
             callback: function(captured_token, image){ //si es success realizamos el callback donde obtendremos el token y la imagen en base64 
@@ -56,8 +56,6 @@ const APIForm  = (props) => {
         },
            failure: function(error){ message.error('Se ha generado el error: ' + error)},//en caso de error mostramos el mensaje con el error a mostrar, los errores se anexan en la documentación
            http: true, //dejar seteado si es un ambiente de desarrollo
-           alt_server: "https://prod-capture.tocws.com",
-           url_lbac:  "https://prod-api.7oc.cl/auto-capture/data/v2"
        }) 
     } 
 
@@ -70,7 +68,7 @@ const APIForm  = (props) => {
 
         TOCautocapture('containerfront', {//accedemos a ella con los parametrros indicados
             locale: "es",//
-            session_id: "a3fb9e217e40413fa62a312d6feb7c3f",//la session generada previamente
+            session_id: "477f204df5f74d97a1fb443cb503a1ba",//la session generada previamente
             document_type: dtype, //el tipo de coumento
             document_side: "front",
             callback: function(captured_token, image){ 
@@ -85,8 +83,6 @@ const APIForm  = (props) => {
         },
         failure: function(error){ message.error('Se ha generado el error: ' + error)} , 
         http: true,
-        alt_server: "https://prod-capture.tocws.com",
-        url_lbac:  "https://prod-api.7oc.cl/auto-capture/data/v2"
     }) 
     } 
 
@@ -99,7 +95,7 @@ const APIForm  = (props) => {
         const TOCliveness  = autocapture;//almacenamos el objeto de la libreria en una variable
         TOCliveness ('liveness', {//accedemos a ella con los parametrros indicados con el id=liveness
         locale: "es",//idioma
-        session_id: "a3fb9e217e40413fa62a312d6feb7c3f",
+        session_id: "477f204df5f74d97a1fb443cb503a1ba",
         callback: function(token){ //si es success realizamos el callback donde obtendremos el token
         message.success('Captura Realizada', 3)//mensaje a mostrar al usuario con la libreria antd
         const tl= token //almacenamos el token en una constanye
@@ -108,9 +104,6 @@ const APIForm  = (props) => {
         },
         failure: function(error){ message.error('Se ha generado el error: ' + error)},//en caso de error mostramos el mensaje con el error a mostrar, los errores se anexan en la documentación
         http: true,  //dejar seteado si es un ambiente de desarrollo
-        alt_server: "https://prod-liveness.tocws.com",
-        url_lbliv:  "https://prod-api.7oc.cl/liveness/image-saver/v1"
-
     }) 
     } 
 
