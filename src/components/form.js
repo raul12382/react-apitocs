@@ -1,5 +1,5 @@
 import {Button, Col, Form, Row, Select, message, Modal, Image} from "antd";
-import React, { useState} from "react";
+import React, { useState, useRef} from "react";
 import axios from "axios";
 import ApiFacial from "../apiFacil/index";
 const {Option} = Select;
@@ -22,6 +22,8 @@ const APIForm  = (props) => {
     const [viewDiv2, setViewDiv2] = useState(true)
     const [div, setDiv] = useState(false)
     const [match, setMatch] = useState(null)
+
+    const ref = useRef(null)
     
     const onChange = (value) =>{
         const a = value
@@ -31,45 +33,43 @@ const APIForm  = (props) => {
     }
 
     const divAutocaptureBack = async (values) =>{
-        setViewDiv1(false)
-        const sessionId = await getSessionId();
+        setViewDiv1(false)//estado para mostrar u ocultar sdk
+        const sessionId = await getSessionId();//almacenamos el session id en una constante
         console.log('Session id', sessionId)
-        const autocapture = window.TOCautocapture;
-        const TOCautocapture = autocapture;
+        const autocapture = window.TOCautocapture;//accedemos a la cdn que anexamos en el index.html
+        const TOCautocapture = autocapture;//almacenamos el objeto de la libreria en una variable
 
-        TOCautocapture('container', {
-            locale: "es",
-            session_id: "f78a1ee7251349fdbd4c5ff88a7e8c93",
-            document_type: dtype,
-            document_side: "back",
-            callback: function(captured_token, image){ 
-            message.success('Captura Realizada', 3)
-            const token = captured_token
-            const image64 = image
+        TOCautocapture('container', { //accedemos a ella con los parametrros indicados con el id container
+            locale: "es",//idioma 
+            session_id: "c59425f7c0394a31b5b280660df217cc",//la session generada previamente
+            document_type: dtype, //el tipo de coumento
+            document_side: "back",//parte trasera o frontal del documentp
+            callback: function(captured_token, image){ //si es success realizamos el callback donde obtendremos el token y la imagen en base64 
+            message.success('Captura Realizada', 3)//mensaje a mostrar al usuario con la libreria antd
+            const token = captured_token//almacenamos el token
+            const image64 = image//almacenamos la imagen
             console.log(captured_token)   
-            setTokenBack(token)
-            setImageBack(image64)
-            setViewDiv1(true)
-            divLiveness()
+            setTokenBack(token)//seteamos el token a utilizar en los servicios que lo requieran
+            setImageBack(image64)//seteamos la imagen a utilizar en los servicios que lo requieran
+            setViewDiv1(true)//estado para mostrar u ocultar sdk
+            divLiveness()//se ejecuta el siguiente sdk en este caso es liveness
         },
-           failure: function(error){ message.error('Se ha generado el error: ' + error)},
-           http: true, 
+           failure: function(error){ message.error('Se ha generado el error: ' + error)},//en caso de error mostramos el mensaje con el error a mostrar, los errores se anexan en la documentación
+           http: true, //dejar seteado si es un ambiente de desarrollo
        }) 
     } 
 
     const divAutocaptureFront = async (values) =>{
-        console.log(dtype)
-        setDiv(true)
-        setViewDiv(false)
-        const sessionId = await getSessionId();
+        setViewDiv(false)//estado para mostrar u ocultar sdk
+        const sessionId = await getSessionId();//almacenamos el session id en una constante, de igual manera pueden setearlo en un estado para no llamar constantemente la función
         console.log('Session id', sessionId)
-        const autocapture = window.TOCautocapture;
-        const TOCautocapture = autocapture;
+        const autocapture = window.TOCautocapture;//accedemos a la cdn que anexamos en el index.html
+        const TOCautocapture = autocapture;//almacenamos el objeto de la libreria en una variable
 
-        TOCautocapture('containerfront', {
-            locale: "es",
-            session_id: "f78a1ee7251349fdbd4c5ff88a7e8c93",
-            document_type: dtype,
+        TOCautocapture('containerfront', {//accedemos a ella con los parametrros indicados
+            locale: "es",//
+            session_id: "c59425f7c0394a31b5b280660df217cc",//la session generada previamente
+            document_type: dtype, //el tipo de coumento
             document_side: "front",
             callback: function(captured_token, image){ 
             message.success('Captura Realizada', 3);
@@ -88,23 +88,22 @@ const APIForm  = (props) => {
 
     const divLiveness = async (values) =>{
 
-        setViewDiv2(false)
-        const sessionId = await getSessionId();
+        setViewDiv2(false)//estado para mostrar u ocultar sdk
+        const sessionId = await getSessionId();//almacenamos el session id en una constante, de igual manera pueden setearlo en un estado para no llamar constantemente la función
         console.log('Session id', sessionId)
-        const autocapture = window.TOCliveness ;
-        const TOCliveness  = autocapture;
-        TOCliveness ('liveness', {
-        locale: "es",
-        session_id: "f78a1ee7251349fdbd4c5ff88a7e8c93",
-        callback: function(token){ 
-        message.success('Captura Realizada', 3)
-        const tl= token  
-        setTokenLiveness(tl)
-        onFinish()
-        setViewDiv2(true)
+        const autocapture = window.TOCliveness;//accedemos a la cdn que anexamos en el index.html
+        const TOCliveness  = autocapture;//almacenamos el objeto de la libreria en una variable
+        TOCliveness ('liveness', {//accedemos a ella con los parametrros indicados con el id=liveness
+        locale: "es",//idioma
+        session_id: "c59425f7c0394a31b5b280660df217cc",
+        callback: function(token){ //si es success realizamos el callback donde obtendremos el token
+        message.success('Captura Realizada', 3)//mensaje a mostrar al usuario con la libreria antd
+        const tl= token //almacenamos el token en una constanye
+        setTokenLiveness(tl)//seteamos el liveness a utilizar en otros llamados
+        setViewDiv2(true)//estado para mostrar u ocultar sdk
         },
-        failure: function(error){ message.error('Se ha generado el error: ' + error)},
-        http: true, 
+        failure: function(error){ message.error('Se ha generado el error: ' + error)},//en caso de error mostramos el mensaje con el error a mostrar, los errores se anexan en la documentación
+        http: true,  //dejar seteado si es un ambiente de desarrollo
     }) 
     } 
 
@@ -133,7 +132,7 @@ const APIForm  = (props) => {
 
     const getSessionId = async () => {
         try{
-            const response = await axios.get('http://54.232.52.181:3001/session')
+            const response = await axios.get('http://localhost:3001/session')//generamos el session_id desde un backend
             console.log('Session id response', response)
             return response.data.session_id;
         }catch(err){
@@ -154,8 +153,8 @@ const APIForm  = (props) => {
         }
     } */
 
-    const apiKey = '433a8e1ed0dc4495974a9f95018eed8f' 
-    const onFinish = async (values) => {
+    const apiKey = '433a8e1ed0dc4495974a9f95018eed8f' //api key entregada al cliente
+    const onFinish = async (values) => {//func
        try {
             let formData = new FormData();
             formData.append('id_front',tokenFront )
@@ -174,6 +173,7 @@ const APIForm  = (props) => {
             message.error('Error al capturar la información');
         }
     }
+
     return (
         <div>
              
@@ -184,11 +184,11 @@ const APIForm  = (props) => {
             <div hidden={div}>
                 <ApiFacial/>                   
             </div>
-           <Row hidden={div}>
-                <Col lg={12} xs={24} style={{textAlign:"center", display:"inline-block"}} className="text-center">
+           <div hidden={div} className="">
+                <div style={{textAlign:"center"}} className="text-center">
                         <div className="text-center text-white border" style={{padding:10,  backgroundColor:'#03324B'}}>
-                        <div className="card-body" style={{padding:10}}>
-                        <p className="card-text text-white col d-flex">
+                        <div style={{padding:10} } className="text-center">
+                        <p className="text-white text-center">
                         Para verificar su identidad se necesitan fotos de su cédula de identidad y rostro, siguiendo los pasos que te mostraremos a continuación.
                         <br/>Evite usar accesorios como lentes o sombreros
                         <br/>Seleccione el tipo de documento para comenzar con la verificación.
@@ -200,18 +200,15 @@ const APIForm  = (props) => {
                             <Option value="MEX2"><Image preview={false} src="https://demo.toc.ai/static/id_mex2.png">MEX2</Image></Option>
                             <Option value="MEX3"><Image preview={false} src="https://demo.toc.ai/static/id_mex3.png">MEX3</Image></Option>
                         </Select>
-                </Col>
-            </Row>
-            <Row hidden={div}>
-                <Col lg={12} xs={24} style={cols}  className="text-center text-white">
-                <div>
-                    <label className="text-center text-white font-weight-bold">Procedimiento</label>
                 </div>
-                <Button style={{backgroundColor:'#18938B', alignItems:"center"}} type="primary" onClick={divAutocaptureFront}>Realizar Onboarding
+            </div>
+            {/* <Row hidden={div} className="text-center">
+                <div style={cols} className="text-center text-white">
+                <Button style={{backgroundColor:'#18938B'}} type="primary" onClick={divAutocaptureFront}>Realizar Onboarding
                 </Button>
-                </Col>
+                </div>
             </Row>
-            {/* <Row>
+            <Row>
                 <Col lg={12} xs={24} style={cols}  className="text-center">
                     <div>
                     <label className="text-center text-white font-weight-bold">Captura</label>
@@ -229,16 +226,19 @@ const APIForm  = (props) => {
                     <Button type="primary" onClick={divLiveness}>Liveness
                     </Button>
                 </Col></Row>*/}
-            <Row hidden={div}>
-                <Col lg={24} xs={24} className="text-center" style={{ alignItems: "center" }}>
+            <Col lg={24} xs={24} className="text-center" style={{ alignItems: "center" }}>
                     <Form.Item style={{ marginTop: 10}}>
-                        <Button className="btn-sm"
+                    <Col style={{paddingBottom:20}}>
+                    <Button style={{backgroundColor:'#18938B'}} type="primary" onClick={divAutocaptureFront}>Realizar Onboarding
+                    </Button>
+                    </Col>
+                    <Button className="btn-sm"
                                 htmlType="submit"
                                 className="text-light text-center"
                                 style={{backgroundColor:'#18938B'}}
                                 >
                                 Enviar informacion
-                        </Button> 
+                    </Button> 
                        
                     </Form.Item>
                     <Col style={{paddingBottom:20, textAlign:"center"}} className="text-center">
@@ -246,7 +246,9 @@ const APIForm  = (props) => {
                             informacion escaneada 
                         </Button>
                     </Col>
-                </Col>                
+                </Col>   
+            <Row hidden={div}>
+                             
             </Row> 
             <Modal
                             title="informacion escaneada "
