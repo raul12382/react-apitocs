@@ -42,7 +42,7 @@ const APIForm  = (props) => {
 
         TOCautocapture('container', { //accedemos a ella con los parametrros indicados con el id container
             locale: "es",//idioma 
-            session_id: "12b2dd1e22684078958de48b37be418b",//la session generada previamente
+            session_id: "7ed3793d78df4735a21d205960f35784",//la session generada previamente
             document_type: dtype, //el tipo de coumento
             document_side: "back",//parte trasera o frontal del documentp
             callback: function(captured_token, image){ //si es success realizamos el callback donde obtendremos el token y la imagen en base64 
@@ -69,7 +69,7 @@ const APIForm  = (props) => {
 
         TOCautocapture('containerfront', {//accedemos a ella con los parametrros indicados
             locale: "es",//
-            session_id: "12b2dd1e22684078958de48b37be418b",//la session generada previamente
+            session_id: "7ed3793d78df4735a21d205960f35784",//la session generada previamente
             document_type: dtype, //el tipo de coumento
             document_side: "front",
             callback: function(captured_token, image){ 
@@ -96,7 +96,7 @@ const APIForm  = (props) => {
         const TOCliveness  = autocapture;//almacenamos el objeto de la libreria en una variable
         TOCliveness ('liveness', {//accedemos a ella con los parametrros indicados con el id=liveness
         locale: "es",//idioma
-        session_id: "12b2dd1e22684078958de48b37be418b",
+        session_id: "7ed3793d78df4735a21d205960f35784",
         callback: function(liveness_token, image){ //si es success realizamos el callback donde obtendremos el token
         message.success('Captura Realizada', 3)//mensaje a mostrar al usuario con la libreria antd
         const tl= liveness_token //almacenamos el token en una constanye
@@ -165,7 +165,6 @@ const APIForm  = (props) => {
             formData.append('selfie', tokenliveness)
             formData.append('apiKey', apiKey) 
             formData.append('documentType', dtype)
-            formData.submit()
         //const response = await axios.post(`https://sandbox-api.7oc.cl/v2/face-and-document`, formData)
             const response = await axios.post(`https://sandbox-api.7oc.cl/v2/face-and-document`, formData)
             setInformation(response.data["information from document"].mrz.data)
