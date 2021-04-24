@@ -7,7 +7,8 @@ const {Option} = Select;
 const APIForm  = (props) => {
     const [form] = Form.useForm();
     const [imageFront, setImageFront] = useState("");
-    const [imageBack, setImageBack] = useState('');
+    const [imageBack, setImageBack] = useState(''); 
+    const [imageLiveness, setImageLiveness] = useState('');
     const [information, setInformation] = useState({});
     const [visible, setVisible] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
@@ -41,7 +42,7 @@ const APIForm  = (props) => {
 
         TOCautocapture('container', { //accedemos a ella con los parametrros indicados con el id container
             locale: "es",//idioma 
-            session_id: "477f204df5f74d97a1fb443cb503a1ba",//la session generada previamente
+            session_id: "0d9aec1a68a448508b5748cda9c72c8c",//la session generada previamente
             document_type: dtype, //el tipo de coumento
             document_side: "back",//parte trasera o frontal del documentp
             callback: function(captured_token, image){ //si es success realizamos el callback donde obtendremos el token y la imagen en base64 
@@ -68,7 +69,7 @@ const APIForm  = (props) => {
 
         TOCautocapture('containerfront', {//accedemos a ella con los parametrros indicados
             locale: "es",//
-            session_id: "477f204df5f74d97a1fb443cb503a1ba",//la session generada previamente
+            session_id: "0d9aec1a68a448508b5748cda9c72c8c",//la session generada previamente
             document_type: dtype, //el tipo de coumento
             document_side: "front",
             callback: function(captured_token, image){ 
@@ -95,11 +96,13 @@ const APIForm  = (props) => {
         const TOCliveness  = autocapture;//almacenamos el objeto de la libreria en una variable
         TOCliveness ('liveness', {//accedemos a ella con los parametrros indicados con el id=liveness
         locale: "es",//idioma
-        session_id: "477f204df5f74d97a1fb443cb503a1ba",
-        callback: function(token){ //si es success realizamos el callback donde obtendremos el token
+        session_id: "0d9aec1a68a448508b5748cda9c72c8c",
+        callback: function(liveness_token, image){ //si es success realizamos el callback donde obtendremos el token
         message.success('Captura Realizada', 3)//mensaje a mostrar al usuario con la libreria antd
-        const tl= token //almacenamos el token en una constanye
+        const tl= liveness_token //almacenamos el token en una constanye
+        const imageLiveness = image
         setTokenLiveness(tl)//seteamos el liveness a utilizar en otros llamados
+        setImageLiveness(imageLiveness)
         setViewDiv2(true)//estado para mostrar u ocultar sdk
         },
         failure: function(error){ message.error('Se ha generado el error: ' + error)},//en caso de error mostramos el mensaje con el error a mostrar, los errores se anexan en la documentación
@@ -270,17 +273,22 @@ const APIForm  = (props) => {
                             <p>Numero de documento: {information["document number"] ? information["document number"] : "Documento sin escanear"}</p>
                             <br/>
                             <p>Fecha Nacimiento: {information["date of birth"] ? information["date of birth"] : "Documento sin escanear"}</p>
+                            <div className="text-center">
+                                <Image src={imageBack} width={50} height={50}></Image>
+                                <Image src={imageFront} width={50} height={50}></Image>
+                                <Image src={imageLiveness} width={50} height={50}></Image>
+                            </div>
             </Modal>
            
             
         </Form>
-            <div className="container container-fluid" hidden={viewDiv} style={{height:1200, textAlign:"center", marginBottom:"auto", marginTop:"auto"}} id="containerfront">
+            <div className="container container-fluid" hidden={viewDiv} style={{height:"50%", textAlign:"center", marginBottom:"auto", marginTop:"auto"}} id="containerfront">
             
             </div>
-            <div  className="container container-fluid"  hidden={viewDiv1} style={{height:1200}} id="container">
+            <div  className="container container-fluid"  hidden={viewDiv1} style={{height:"50%"}} id="container">
             
             </div>
-            <div  className="container container-fluid"  hidden={viewDiv2} style={{height:100}} id="liveness">
+            <div  className="container container-fluid"  hidden={viewDiv2} style={{height:"50%"}} id="liveness">
             
             </div>
         </div>
