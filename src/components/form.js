@@ -54,7 +54,7 @@ const APIForm  = (props) => {
             setImageBack(image64)//seteamos la imagen a utilizar en los servicios que lo requieran
             setViewDiv1(true)//estado para mostrar u ocultar sdk
             divLiveness()//se ejecuta el siguiente sdk en este caso es liveness
-            await onFinish()
+            onFinish()
 
         },
            failure: function(error){ 
