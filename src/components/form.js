@@ -266,6 +266,7 @@ const APIForm  = (props) => {
                     </Col>
                     <Button className="btn-sm"
                                 htmlType="submit"
+                                hidden={information ? true : false}
                                 className="text-light text-center"
                                 style={{backgroundColor:'#18938B'}}
                                 >
