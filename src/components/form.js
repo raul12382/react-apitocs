@@ -54,7 +54,6 @@ const APIForm  = (props) => {
             setImageBack(image64)//seteamos la imagen a utilizar en los servicios que lo requieran
             setViewDiv1(true)//estado para mostrar u ocultar sdk
             divLiveness()//se ejecuta el siguiente sdk en este caso es liveness
-            onFinish()
 
         },
            failure: function(error){ 
@@ -127,6 +126,7 @@ const APIForm  = (props) => {
         setTokenLiveness(tl)//seteamos el liveness a utilizar en otros llamados
         setImageLiveness(imageLiveness)
         setViewDiv2(true)//estado para mostrar u ocultar sdk
+        onFinish()
         },
         retry_on_timeout: true,
         failure: function(error){ message.error('Se ha generado el error: ' + error)
