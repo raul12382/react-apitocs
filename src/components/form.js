@@ -1,4 +1,4 @@
-import {Button, Col, Form, Row, Select, message, Modal, Image} from "antd";
+import {Button, Col, Form, Row, Select, message, Modal, Image, Spin} from "antd";
 import React, { useState, useRef} from "react";
 import axios from "axios";
 import ApiFacial from "../apiFacil/index";
@@ -22,7 +22,7 @@ const APIForm  = (props) => {
     const [viewDiv1, setViewDiv1] = useState(true)
     const [viewDiv2, setViewDiv2] = useState(true)
     const [div, setDiv] = useState(false)
-    const [match, setMatch] = useState(null)
+    const [spinner, setSpinner] = useState(true)
 
     const ref = useRef(null)
     
@@ -184,8 +184,8 @@ const APIForm  = (props) => {
     } */
 
     const apiKey = '433a8e1ed0dc4495974a9f95018eed8f' //api key entregada al cliente
-    const onFinish = async (values) => {//func
-       try {
+    const onFinish = async () => {//func
+            setSpinner(false)
             let formData = new FormData();
             formData.append('id_front',tokenFront )
             formData.append('id_back',tokenBack )
@@ -194,13 +194,16 @@ const APIForm  = (props) => {
             formData.append('documentType', dtype)
         //const response = await axios.post(`https://sandbox-api.7oc.cl/v2/face-and-document`, formData)
             const response = await axios.post(`https://sandbox-api.7oc.cl/v2/face-and-document`, formData)
-            setInformation(response.data["information from document"].mrz.data)
-            message.success('Datos enviados correctamente', 3)
+            setInformation(response.data)
+            if (information.status == "200"){
+                message.success("Validación positiva")
+            } else{
+                message.error("ha ocurrido el sigiuiente error: " + information.status)
+            }
+            console.log(information)
             setVisible(true)
-        return response
-        } catch (error) {
-            message.error('Error al capturar la información, realice una nueva verificación se ha producido el error: ');
-        }
+            setSpinner(true)
+
     }
 
     return (
@@ -277,6 +280,9 @@ const APIForm  = (props) => {
                     </Col>
                 </Col>   
             <Row hidden={div}>
+            <div className="example" hidden={spinner}>
+                <Spin />
+            </div>
                              
             </Row> 
             <Modal
@@ -306,16 +312,21 @@ const APIForm  = (props) => {
                             </div>
             </Modal>
            
-            
         </Form>
-            <div className="container container-fluid" hidden={viewDiv} style={{height:"50%", textAlign:"center", marginBottom:"auto", marginTop:"auto"}} id="containerfront">
-            
+            <div className="container container-fluid" hidden={viewDiv} style={{height:"50%", textAlign:"center", marginBottom:"auto", marginTop:"auto"}}>
+                <div  id="containerfront">
+
+                </div>
             </div>
-            <div  className="container container-fluid"  hidden={viewDiv1} style={{height:"50%"}} id="container">
-            
+            <div  className="container container-fluid"  hidden={viewDiv1} style={{height:"50%"}}>
+                <div  id="container">
+
+                </div>
             </div>
-            <div  className="container container-fluid"  hidden={viewDiv2} style={{height:"50%"}} id="liveness">
-            
+            <div  className="container container-fluid"  hidden={viewDiv2} style={{height:"50%"}} >
+                <div id="liveness">
+
+                </div>
             </div>
         </div>
     );
