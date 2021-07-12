@@ -42,7 +42,7 @@ const APIForm  = (props) => {
 
         TOCautocapture('container', { //accedemos a ella con los parametrros indicados con el id container
             locale: "es",//idioma 
-            session_id: "7ed3793d78df4735a21d205960f35784",//la session generada previamente
+            session_id: sessionId,//la session generada previamente
             document_type: dtype, //el tipo de coumento
             document_side: "back",//parte trasera o frontal del documentp
             callback: function(captured_token, image){ //si es success realizamos el callback donde obtendremos el token y la imagen en base64 
@@ -55,7 +55,15 @@ const APIForm  = (props) => {
             setViewDiv1(true)//estado para mostrar u ocultar sdk
             divLiveness()//se ejecuta el siguiente sdk en este caso es liveness
         },
-           failure: function(error){ message.error('Se ha generado el error: ' + error)},//en caso de error mostramos el mensaje con el error a mostrar, los errores se anexan en la documentación
+           failure: function(error){ 
+            const e = error
+            if (e === 405){
+                e = "prueba de error"
+            }else{
+                e = "prueba de error 2"
+            }
+            message.error (e)
+            },//en caso de error mostramos el mensaje con el error a mostrar, los errores se anexan en la documentación
            http: true, //dejar seteado si es un ambiente de desarrollo
        }) 
     } 
@@ -69,7 +77,7 @@ const APIForm  = (props) => {
 
         TOCautocapture('containerfront', {//accedemos a ella con los parametrros indicados
             locale: "es",//
-            session_id: "7ed3793d78df4735a21d205960f35784",//la session generada previamente
+            session_id: sessionId,//la session generada previamente
             document_type: dtype, //el tipo de coumento
             document_side: "front",
             callback: function(captured_token, image){ 
@@ -82,12 +90,22 @@ const APIForm  = (props) => {
             setViewDiv(true)
             divAutocaptureBack()
         },
-        failure: function(error){ message.error('Se ha generado el error: ' + error)} , 
+        failure: function(error){ 
+            console.log(error)
+            let e = error
+            if (e === "405"){
+                e = "prueba de error"
+            }else{
+                e = "prueba de error 2"
+            }
+        message.error(e)
+        
+        } , 
         http: true,
     }) 
     } 
 
-    const divLiveness = async (values) =>{
+    const divLiveness = async () =>{
 
         setViewDiv2(false)//estado para mostrar u ocultar sdk
         const sessionId = await getSessionId();//almacenamos el session id en una constante, de igual manera pueden setearlo en un estado para no llamar constantemente la función
@@ -96,7 +114,10 @@ const APIForm  = (props) => {
         const TOCliveness  = autocapture;//almacenamos el objeto de la libreria en una variable
         TOCliveness ('liveness', {//accedemos a ella con los parametrros indicados con el id=liveness
         locale: "es",//idioma
-        session_id: "7ed3793d78df4735a21d205960f35784",
+        http: true,
+        session_id: sessionId,
+/*         alt_server: "https://prod-liveness.tocws.com",
+        url_lbliv: "https://prod-api.7oc.cl/liveness/image-saver/v1",    */
         callback: function(liveness_token, image){ //si es success realizamos el callback donde obtendremos el token
         message.success('Captura Realizada', 3)//mensaje a mostrar al usuario con la libreria antd
         const tl= liveness_token //almacenamos el token en una constanye
@@ -105,8 +126,12 @@ const APIForm  = (props) => {
         setImageLiveness(imageLiveness)
         setViewDiv2(true)//estado para mostrar u ocultar sdk
         },
-        failure: function(error){ message.error('Se ha generado el error: ' + error)},//en caso de error mostramos el mensaje con el error a mostrar, los errores se anexan en la documentación
-        http: true,  //dejar seteado si es un ambiente de desarrollo
+        retry_on_timeout: true,
+        failure: function(error){ message.error('Se ha generado el error: ' + error)
+        console.log("el error es: " + error)
+    },
+
+        //en caso de error mostramos el mensaje con el error a mostrar, los errores se anexan en la documentación
     }) 
     } 
 
@@ -135,7 +160,7 @@ const APIForm  = (props) => {
 
     const getSessionId = async () => {
         try{
-            const response = await axios.get('http://localhost:3001/session')//generamos el session_id desde un backend
+            const response = await axios.get('https://node-js-session.herokuapp.com/session')//generamos el session_id desde un backend
             console.log('Session id response', response)
             return response.data.session_id;
         }catch(err){
@@ -172,7 +197,7 @@ const APIForm  = (props) => {
             setVisible(true)
         return response
         } catch (error) {
-            message.error('Error al capturar la información');
+            message.error('Error al capturar la información, realice una nueva verificación se ha producido el error: ');
         }
     }
 
@@ -231,7 +256,7 @@ const APIForm  = (props) => {
             <Col lg={24} xs={24} className="text-center" style={{ alignItems: "center" }}>
                     <Form.Item style={{ marginTop: 10}}>
                     <Col style={{paddingBottom:20}}>
-                    <Button style={{backgroundColor:'#18938B'}} type="primary" onClick={divAutocaptureFront}>Realizar Onboarding
+                    <Button style={{backgroundColor:'#18938B'}} type="primary" onClick={divLiveness}>Realizar Onboarding
                     </Button>
                     </Col>
                     <Button className="btn-sm"
