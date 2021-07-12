@@ -126,7 +126,6 @@ const APIForm  = (props) => {
         setTokenLiveness(tl)//seteamos el liveness a utilizar en otros llamados
         setImageLiveness(imageLiveness)
         setViewDiv2(true)//estado para mostrar u ocultar sdk
-        onFinish()
         },
         retry_on_timeout: true,
         failure: function(error){ message.error('Se ha generado el error: ' + error)
@@ -266,7 +265,6 @@ const APIForm  = (props) => {
                     </Col>
                     <Button className="btn-sm"
                                 htmlType="submit"
-                                hidden={information ? true : false}
                                 className="text-light text-center"
                                 style={{backgroundColor:'#18938B'}}
                                 >
