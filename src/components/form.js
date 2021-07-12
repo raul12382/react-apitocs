@@ -195,12 +195,12 @@ const APIForm  = (props) => {
         //const response = await axios.post(`https://sandbox-api.7oc.cl/v2/face-and-document`, formData)
             const response = await axios.post(`https://sandbox-api.7oc.cl/v2/face-and-document`, formData)
             setInformation(response.data)
+            console.log(information)
             if (information.status == "200"){
                 message.success("Validación positiva")
             } else{
                 message.error("ha ocurrido el sigiuiente error: " + information.status)
             }
-            console.log(information)
             setVisible(true)
             setSpinner(true)
 
