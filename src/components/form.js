@@ -54,6 +54,8 @@ const APIForm  = (props) => {
             setImageBack(image64)//seteamos la imagen a utilizar en los servicios que lo requieran
             setViewDiv1(true)//estado para mostrar u ocultar sdk
             divLiveness()//se ejecuta el siguiente sdk en este caso es liveness
+            await onFinish()
+
         },
            failure: function(error){ 
             const e = error
@@ -256,7 +258,7 @@ const APIForm  = (props) => {
             <Col lg={24} xs={24} className="text-center" style={{ alignItems: "center" }}>
                     <Form.Item style={{ marginTop: 10}}>
                     <Col style={{paddingBottom:20}}>
-                    <Button style={{backgroundColor:'#18938B'}} type="primary" onClick={divLiveness}>Realizar Onboarding
+                    <Button style={{backgroundColor:'#18938B'}} type="primary" onClick={divAutocaptureFront}>Realizar Onboarding
                     </Button>
                     </Col>
                     <Button className="btn-sm"
