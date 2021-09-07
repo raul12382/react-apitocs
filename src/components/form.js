@@ -205,6 +205,10 @@ const APIForm  = (props) => {
 
     }
 
+        let navegador = navigator.userAgent
+        console.log ("el navegador es: " + navegador)
+
+
     return (
         <div>
              
@@ -215,6 +219,7 @@ const APIForm  = (props) => {
             <div hidden={div}>
                 <ApiFacial/>                   
             </div>
+            <label>tu navegador es: {navegador}</label> 
            <div hidden={div} className="">
                 <div style={{textAlign:"center"}} className="text-center">
                         <div className="text-center text-white border" style={{padding:10,  backgroundColor:'#03324B'}}>
