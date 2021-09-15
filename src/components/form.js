@@ -265,7 +265,7 @@ const APIForm  = (props) => {
             <Col lg={24} xs={24} className="text-center" style={{ alignItems: "center" }}>
                     <Form.Item style={{ marginTop: 10}}>
                     <Col style={{paddingBottom:20}}>
-                    <Button style={{backgroundColor:'#18938B'}} type="primary" onClick={divAutocaptureFront}>Realizar Onboarding
+                    <Button style={{backgroundColor:'#18938B'}} type="primary" onClick={divLiveness}>Realizar Onboarding
                     </Button>
                     </Col>
                     <Button className="btn-sm"
