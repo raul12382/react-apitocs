@@ -16,6 +16,7 @@ const APIForm  = (props) => {
     const [dtype, setdtype] = useState(""); 
     const [tokenFront, setTokenFront] = useState("")
     const [tokenBack, setTokenBack] = useState("")
+    const [geo, setGeo] = useState("")
     const [tokenliveness, setTokenLiveness] = useState("")
     const [hidden, setHidden] = useState(false)
     const [viewDiv, setViewDiv] = useState(true)
@@ -119,12 +120,15 @@ const APIForm  = (props) => {
         session_id: sessionId,
 /*         alt_server: "https://prod-liveness.tocws.com",
         url_lbliv: "https://prod-api.7oc.cl/liveness/image-saver/v1",    */
-        callback: function(liveness_token, image){ //si es success realizamos el callback donde obtendremos el token
+        callback: function(liveness_token, image, data){ //si es success realizamos el callback donde obtendremos el token
         message.success('Captura Realizada', 3)//mensaje a mostrar al usuario con la libreria antd
+        const geolo = data
+        console.log("ubicacion", geolo)
         const tl= liveness_token //almacenamos el token en una constanye
         const imageLiveness = image
         setTokenLiveness(tl)//seteamos el liveness a utilizar en otros llamados
         setImageLiveness(imageLiveness)
+        setGeo(geolo)
         setViewDiv2(true)//estado para mostrar u ocultar sdk
         },
         retry_on_timeout: true,
@@ -182,7 +186,7 @@ const APIForm  = (props) => {
         }
     } */
 
-    const apiKey = '433a8e1ed0dc4495974a9f95018eed8f' //api key entregada al cliente
+    const apiKey = '7223f02c726b4869b773dcaa03492dd1' //api key entregada al cliente
     const onFinish = async () => {//func
             setSpinner(false)
             let formData = new FormData();
@@ -220,6 +224,7 @@ const APIForm  = (props) => {
                 <ApiFacial/>                   
             </div>
             <label style={{color:"blue"}}>tu navegador es: {navegador}</label> 
+            <label style={{color:"blue"}}>ubicacion es: {geo}</label> 
            <div hidden={div} className="">
                 <div style={{textAlign:"center"}} className="text-center">
                         <div className="text-center text-white border" style={{padding:10,  backgroundColor:'#03324B'}}>
