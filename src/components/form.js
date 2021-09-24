@@ -123,7 +123,7 @@ const APIForm  = (props) => {
         callback: function(liveness_token, image, data){ //si es success realizamos el callback donde obtendremos el token
         message.success('Captura Realizada', 3)//mensaje a mostrar al usuario con la libreria antd
         const geolo = data
-        console.log("ubicacion", geolo)
+        console.log("ubicaciones", geolo)
         const tl= liveness_token //almacenamos el token en una constanye
         const imageLiveness = image
         setTokenLiveness(tl)//seteamos el liveness a utilizar en otros llamados
