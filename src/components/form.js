@@ -109,7 +109,7 @@ const APIForm  = (props) => {
 
     const divLiveness = async () =>{
 
-        setViewDiv2(false)//estado para mostrar u ocultar sdk
+        setViewDiv2(false)//estado para mostrar u ocultar sd
         const sessionId = await getSessionId();//almacenamos el session id en una constante, de igual manera pueden setearlo en un estado para no llamar constantemente la función
         console.log('Session id', sessionId)
         const autocapture = window.TOCliveness;//accedemos a la cdn que anexamos en el index.html
